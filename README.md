@@ -68,6 +68,7 @@ CarbonWise follows a **understand → track → reduce** approach:
 | 🧮 **Calculator** | Multi-step lifestyle questionnaire covering 5 categories (Transport, Food, Energy, Shopping, Digital) with live running estimate and detailed results with global comparison |
 | 📝 **Activity Logger** | Log daily activities with real-time emission calculation, calendar heatmap view, list view grouped by date, category filtering, and delete functionality |
 | 💡 **Insights** | 30-day trend analysis, category month-over-month comparison, personalized "What If" scenarios, and AI-style recommendations ranked by impact |
+| 💬 **Eco Assistant** | Interactive sustainability chatbot that analyzes your logged emissions, calculates carbon footprints on-the-fly (e.g. "20 km by train"), and suggests actions |
 | 🏆 **Challenges** | 10 curated eco-challenges with difficulty levels, XP rewards, progress tracking, and 10 unlockable achievement badges |
 | ⚙️ **Settings** | Profile management, dark/light theme toggle, metric/imperial units, data export/import (JSON), and data deletion with confirmation |
 
@@ -178,6 +179,7 @@ Onboarding (3 steps) → Dashboard → Log Activities → View Insights → Take
 │   │   ├── Calculator.jsx        # Carbon footprint calculator
 │   │   ├── Logger.jsx            # Activity logger
 │   │   ├── Insights.jsx          # Insights & recommendations
+│   │   ├── Assistant.jsx         # Interactive chatbot & calculator
 │   │   ├── Challenges.jsx        # Eco challenges & achievements
 │   │   └── Settings.jsx          # Profile & data management
 │   ├── data/
