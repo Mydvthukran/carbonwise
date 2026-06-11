@@ -15,6 +15,11 @@ import {
   getUnlockedAchievements,
 } from '../utils/storage'
 
+/**
+ * Dashboard Component
+ * Displays carbon footprint summary, charts, and statistics.
+ * @component
+ */
 export default function Dashboard({ profile, navigateTo }) {
   const [period, setPeriod] = useState('week')
   const activities = useMemo(() => getActivities(), [])

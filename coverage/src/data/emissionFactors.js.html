@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">92.85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>6/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -350,7 +350,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -572,7 +572,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -606,7 +606,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -618,12 +618,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * CarbonWise - Emission Factors Database
@@ -631,7 +631,7 @@
  * Sources: EPA, DEFRA, IEA, IPCC
  */
 &nbsp;
-export const EMISSION_FACTORS = <span class="cstat-no" title="statement not covered" >{</span>
+export const EMISSION_FACTORS = {
   transport: {
     car_petrol: {
       factor: 0.21,
@@ -853,7 +853,7 @@ export const EMISSION_FACTORS = <span class="cstat-no" title="statement not cove
   },
 }
 &nbsp;
-export const CATEGORIES = <span class="cstat-no" title="statement not covered" >{</span>
+export const CATEGORIES = {
   transport: {
     label: 'Transport',
     icon: '🚗',
@@ -887,7 +887,7 @@ export const CATEGORIES = <span class="cstat-no" title="statement not covered" >
   waste: { label: 'Waste', icon: '🗑️', color: '#EF4444', description: 'Waste &amp; recycling' },
 }
 &nbsp;
-export const GLOBAL_AVERAGES = <span class="cstat-no" title="statement not covered" >{</span>
+export const GLOBAL_AVERAGES = {
   world: { annual: 4700, label: 'World Average' },
   usa: { annual: 14700, label: 'USA' },
   eu: { annual: 6500, label: 'EU Average' },
@@ -898,13 +898,13 @@ export const GLOBAL_AVERAGES = <span class="cstat-no" title="statement not cover
 }
 &nbsp;
 // Returns eco rating based on annual CO2 in kg
-export function <span class="fstat-no" title="function not covered" >getEcoRating(a</span>nnualKg) {
-<span class="cstat-no" title="statement not covered" >  if (annualKg &lt;= 2000) <span class="cstat-no" title="statement not covered" >return { score: 95, grade: 'A+', label: 'Exceptional', color: '#10B981' }</span></span>
-<span class="cstat-no" title="statement not covered" >  if (annualKg &lt;= 3000) <span class="cstat-no" title="statement not covered" >return { score: 85, grade: 'A', label: 'Excellent', color: '#34D399' }</span></span>
-<span class="cstat-no" title="statement not covered" >  if (annualKg &lt;= 4500) <span class="cstat-no" title="statement not covered" >return { score: 72, grade: 'B', label: 'Good', color: '#FBBF24' }</span></span>
-<span class="cstat-no" title="statement not covered" >  if (annualKg &lt;= 6500) <span class="cstat-no" title="statement not covered" >return { score: 55, grade: 'C', label: 'Average', color: '#F59E0B' }</span></span>
-<span class="cstat-no" title="statement not covered" >  if (annualKg &lt;= 10000) <span class="cstat-no" title="statement not covered" >return { score: 35, grade: 'D', label: 'Above Average', color: '#F97316' }</span></span>
-<span class="cstat-no" title="statement not covered" >  return { score: 15, grade: 'F', label: 'High Impact', color: '#EF4444' }</span>
+export function getEcoRating(annualKg) {
+  if (annualKg &lt;= 2000) return { score: 95, grade: 'A+', label: 'Exceptional', color: '#10B981' }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (annualKg &lt;= 3000) <span class="cstat-no" title="statement not covered" >return { score: 85, grade: 'A', label: 'Excellent', color: '#34D399' }</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (annualKg &lt;= 4500) return { score: 72, grade: 'B', label: 'Good', color: '#FBBF24' }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (annualKg &lt;= 6500) return { score: 55, grade: 'C', label: 'Average', color: '#F59E0B' }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (annualKg &lt;= 10000) return { score: 35, grade: 'D', label: 'Above Average', color: '#F97316' }
+  return { score: 15, grade: 'F', label: 'High Impact', color: '#EF4444' }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -913,7 +913,7 @@ export function <span class="fstat-no" title="function not covered" >getEcoRatin
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-11T18:28:30.026Z
+                at 2026-06-11T18:34:18.198Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

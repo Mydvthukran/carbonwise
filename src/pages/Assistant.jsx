@@ -9,6 +9,11 @@ import {
   getDateDaysAgo,
 } from '../utils/storage'
 
+/**
+ * Assistant Component
+ * AI-powered chat interface to help users with carbon reduction advice.
+ * @component
+ */
 export default function Assistant() {
   const [messages, setMessages] = useState([
     {

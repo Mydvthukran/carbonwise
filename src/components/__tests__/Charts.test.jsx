@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react'
-import { describe, it, expect, vi, beforeAll } from 'vitest'
+import { render } from '@testing-library/react'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { BarChart, DonutChart, Sparkline, AreaChart } from '../Charts'
 
 // Mock ResizeObserver
@@ -10,7 +10,7 @@ class ResizeObserverMock {
 }
 
 beforeAll(() => {
-  global.ResizeObserver = ResizeObserverMock
+  window.ResizeObserver = ResizeObserverMock
 })
 
 describe('Charts', () => {
