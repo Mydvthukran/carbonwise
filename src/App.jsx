@@ -46,14 +46,14 @@ export default function App() {
 
   const addToast = useCallback((toast) => {
     const id = Date.now().toString(36)
-    setToasts(prev => [...prev, { ...toast, id }])
+    setToasts((prev) => [...prev, { ...toast, id }])
     setTimeout(() => {
-      setToasts(prev => prev.filter(t => t.id !== id))
+      setToasts((prev) => prev.filter((t) => t.id !== id))
     }, 4000)
   }, [])
 
   const removeToast = useCallback((id) => {
-    setToasts(prev => prev.filter(t => t.id !== id))
+    setToasts((prev) => prev.filter((t) => t.id !== id))
   }, [])
 
   const handleOnboardingComplete = (newProfile) => {
@@ -106,18 +106,18 @@ export default function App() {
         theme={theme}
         onThemeToggle={handleThemeToggle}
       />
-      
+
       <div
         className={`sidebar-overlay ${sidebarOpen ? 'visible' : ''}`}
         onClick={() => setSidebarOpen(false)}
         aria-hidden="true"
       />
-      
+
       <MobileHeader
         title={PAGES[currentPage]?.label || 'Dashboard'}
         onMenuClick={() => setSidebarOpen(true)}
       />
-      
+
       <main className="main-content" role="main">
         <PageComponent
           profile={profile}
@@ -128,7 +128,7 @@ export default function App() {
           onThemeToggle={handleThemeToggle}
         />
       </main>
-      
+
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </div>
   )

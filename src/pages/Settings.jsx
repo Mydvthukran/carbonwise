@@ -110,60 +110,78 @@ export default function Settings({ profile, onProfileUpdate, addToast, theme, on
 
       {/* Profile Section */}
       <div className="card" style={{ marginBottom: 'var(--space-6)' }}>
-        <h2 className="card-title" style={{ marginBottom: 'var(--space-6)' }}>👤 Profile</h2>
+        <h2 className="card-title" style={{ marginBottom: 'var(--space-6)' }}>
+          👤 Profile
+        </h2>
 
         <div className="grid-2">
           <div className="form-group">
-            <label className="form-label" htmlFor="settings-name">Name</label>
+            <label className="form-label" htmlFor="settings-name">
+              Name
+            </label>
             <input
               id="settings-name"
               type="text"
               className="form-input"
               value={name}
-              onChange={e => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               maxLength={50}
               aria-required="true"
             />
           </div>
 
           <div className="form-group">
-            <label className="form-label" htmlFor="settings-country">Country / Region</label>
+            <label className="form-label" htmlFor="settings-country">
+              Country / Region
+            </label>
             <select
               id="settings-country"
               className="form-select"
               value={country}
-              onChange={e => setCountry(e.target.value)}
+              onChange={(e) => setCountry(e.target.value)}
             >
-              {COUNTRIES.map(c => (
-                <option key={c.value} value={c.value}>{c.label}</option>
+              {COUNTRIES.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
               ))}
             </select>
           </div>
 
           <div className="form-group">
-            <label className="form-label" htmlFor="settings-goal">Annual CO₂ Goal (kg)</label>
+            <label className="form-label" htmlFor="settings-goal">
+              Annual CO₂ Goal (kg)
+            </label>
             <input
               id="settings-goal"
               type="number"
               className="form-input"
               value={goal}
-              onChange={e => setGoal(e.target.value)}
+              onChange={(e) => setGoal(e.target.value)}
               min={500}
               max={20000}
               step={100}
             />
-            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)', marginTop: 'var(--space-1)' }}>
+            <div
+              style={{
+                fontSize: 'var(--font-size-xs)',
+                color: 'var(--text-tertiary)',
+                marginTop: 'var(--space-1)',
+              }}
+            >
               = {(goal / 1000).toFixed(1)} tonnes per year
             </div>
           </div>
 
           <div className="form-group">
-            <label className="form-label" htmlFor="settings-unit">Units</label>
+            <label className="form-label" htmlFor="settings-unit">
+              Units
+            </label>
             <select
               id="settings-unit"
               className="form-select"
               value={unit}
-              onChange={e => setUnit(e.target.value)}
+              onChange={(e) => setUnit(e.target.value)}
             >
               <option value="metric">Metric (kg, km)</option>
               <option value="imperial">Imperial (lbs, miles)</option>
@@ -171,14 +189,21 @@ export default function Settings({ profile, onProfileUpdate, addToast, theme, on
           </div>
         </div>
 
-        <button className="btn btn-primary btn-lg" onClick={handleSave} id="save-settings" style={{ marginTop: 'var(--space-4)' }}>
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={handleSave}
+          id="save-settings"
+          style={{ marginTop: 'var(--space-4)' }}
+        >
           💾 Save Changes
         </button>
       </div>
 
       {/* Appearance */}
       <div className="card" style={{ marginBottom: 'var(--space-6)' }}>
-        <h2 className="card-title" style={{ marginBottom: 'var(--space-4)' }}>🎨 Appearance</h2>
+        <h2 className="card-title" style={{ marginBottom: 'var(--space-4)' }}>
+          🎨 Appearance
+        </h2>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
             <div style={{ fontWeight: 600 }}>Theme</div>
@@ -200,11 +225,22 @@ export default function Settings({ profile, onProfileUpdate, addToast, theme, on
 
       {/* Data Management */}
       <div className="card" style={{ marginBottom: 'var(--space-6)' }}>
-        <h2 className="card-title" style={{ marginBottom: 'var(--space-4)' }}>📁 Data Management</h2>
+        <h2 className="card-title" style={{ marginBottom: 'var(--space-4)' }}>
+          📁 Data Management
+        </h2>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
           {/* Export */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--space-4)', borderRadius: 'var(--radius-lg)', background: 'var(--bg-secondary)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: 'var(--space-4)',
+              borderRadius: 'var(--radius-lg)',
+              background: 'var(--bg-secondary)',
+            }}
+          >
             <div>
               <div style={{ fontWeight: 600 }}>Export Data</div>
               <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>
@@ -217,7 +253,16 @@ export default function Settings({ profile, onProfileUpdate, addToast, theme, on
           </div>
 
           {/* Import */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--space-4)', borderRadius: 'var(--radius-lg)', background: 'var(--bg-secondary)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: 'var(--space-4)',
+              borderRadius: 'var(--radius-lg)',
+              background: 'var(--bg-secondary)',
+            }}
+          >
             <div>
               <div style={{ fontWeight: 600 }}>Import Data</div>
               <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>
@@ -231,13 +276,27 @@ export default function Settings({ profile, onProfileUpdate, addToast, theme, on
               style={{ display: 'none' }}
               onChange={handleImport}
             />
-            <button className="btn btn-secondary" onClick={() => fileInputRef.current?.click()} id="import-data">
+            <button
+              className="btn btn-secondary"
+              onClick={() => fileInputRef.current?.click()}
+              id="import-data"
+            >
               📥 Import
             </button>
           </div>
 
           {/* Delete All */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--space-4)', borderRadius: 'var(--radius-lg)', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: 'var(--space-4)',
+              borderRadius: 'var(--radius-lg)',
+              background: 'rgba(239, 68, 68, 0.05)',
+              border: '1px solid rgba(239, 68, 68, 0.2)',
+            }}
+          >
             <div>
               <div style={{ fontWeight: 600, color: 'var(--color-danger)' }}>Delete All Data</div>
               <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>
@@ -245,15 +304,26 @@ export default function Settings({ profile, onProfileUpdate, addToast, theme, on
               </div>
             </div>
             {!showDeleteConfirm ? (
-              <button className="btn btn-danger" onClick={() => setShowDeleteConfirm(true)} id="delete-data">
+              <button
+                className="btn btn-danger"
+                onClick={() => setShowDeleteConfirm(true)}
+                id="delete-data"
+              >
                 🗑️ Delete
               </button>
             ) : (
               <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-                <button className="btn btn-secondary btn-sm" onClick={() => setShowDeleteConfirm(false)}>
+                <button
+                  className="btn btn-secondary btn-sm"
+                  onClick={() => setShowDeleteConfirm(false)}
+                >
                   Cancel
                 </button>
-                <button className="btn btn-danger btn-sm" onClick={handleDeleteAll} id="confirm-delete">
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={handleDeleteAll}
+                  id="confirm-delete"
+                >
                   Confirm Delete
                 </button>
               </div>
@@ -264,17 +334,34 @@ export default function Settings({ profile, onProfileUpdate, addToast, theme, on
 
       {/* About */}
       <div className="card">
-        <h2 className="card-title" style={{ marginBottom: 'var(--space-4)' }}>ℹ️ About CarbonWise</h2>
-        <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+        <h2 className="card-title" style={{ marginBottom: 'var(--space-4)' }}>
+          ℹ️ About CarbonWise
+        </h2>
+        <div
+          style={{
+            fontSize: 'var(--font-size-sm)',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.8,
+          }}
+        >
           <p style={{ marginBottom: 'var(--space-3)' }}>
-            <strong>CarbonWise</strong> is a personal carbon footprint tracker that helps you understand, 
-            monitor, and reduce your environmental impact through actionable insights and gamification.
+            <strong>CarbonWise</strong> is a personal carbon footprint tracker that helps you
+            understand, monitor, and reduce your environmental impact through actionable insights
+            and gamification.
           </p>
           <p style={{ marginBottom: 'var(--space-3)' }}>
-            All data is stored locally on your device using localStorage. No data is sent to any server.
-            Your privacy is fully respected.
+            All data is stored locally on your device using localStorage. No data is sent to any
+            server. Your privacy is fully respected.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap', fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)' }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: 'var(--space-4)',
+              flexWrap: 'wrap',
+              fontSize: 'var(--font-size-xs)',
+              color: 'var(--text-tertiary)',
+            }}
+          >
             <span>Version 1.0.0</span>
             <span>•</span>
             <span>Built with React + Vite</span>

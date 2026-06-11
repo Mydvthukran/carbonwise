@@ -25,13 +25,13 @@ export default function Dashboard({ profile, navigateTo }) {
   const startDate = getDateDaysAgo(periodDays)
 
   const periodActivities = useMemo(
-    () => activities.filter(a => a.date >= startDate && a.date <= today),
+    () => activities.filter((a) => a.date >= startDate && a.date <= today),
     [activities, startDate, today]
   )
 
   const totalEmissions = periodActivities.reduce((sum, a) => sum + a.emissions, 0)
   const prevStartDate = getDateDaysAgo(periodDays * 2)
-  const prevActivities = activities.filter(a => a.date >= prevStartDate && a.date < startDate)
+  const prevActivities = activities.filter((a) => a.date >= prevStartDate && a.date < startDate)
   const prevTotal = prevActivities.reduce((sum, a) => sum + a.emissions, 0)
   const trendPercent = prevTotal > 0 ? ((totalEmissions - prevTotal) / prevTotal) * 100 : 0
 
@@ -49,17 +49,17 @@ export default function Dashboard({ profile, navigateTo }) {
 
   // Weekly trend data
   const weeklyData = useMemo(() => getWeeklyEmissions(8), [])
-  const barData = weeklyData.map(w => ({
+  const barData = weeklyData.map((w) => ({
     label: w.week,
     value: w.total,
   }))
 
   // Daily sparkline
-  const dailyData = useMemo(() => getDailyEmissions(14).map(d => d.total), [])
+  const dailyData = useMemo(() => getDailyEmissions(14).map((d) => d.total), [])
 
   // Today's emissions
   const todayEmissions = activities
-    .filter(a => a.date === today)
+    .filter((a) => a.date === today)
     .reduce((sum, a) => sum + a.emissions, 0)
 
   // Tips
@@ -68,7 +68,8 @@ export default function Dashboard({ profile, navigateTo }) {
   const completedChallenges = getCompletedChallenges()
   const achievements = getUnlockedAchievements()
 
-  const periodLabel = period === 'week' ? 'This Week' : period === 'month' ? 'This Month' : 'This Year'
+  const periodLabel =
+    period === 'week' ? 'This Week' : period === 'month' ? 'This Month' : 'This Year'
 
   return (
     <div className="animate-fade-in-up">
@@ -80,7 +81,7 @@ export default function Dashboard({ profile, navigateTo }) {
 
       {/* Period Tabs */}
       <div className="tabs" role="tablist" aria-label="Time period">
-        {['week', 'month', 'year'].map(p => (
+        {['week', 'month', 'year'].map((p) => (
           <button
             key={p}
             className={`tab ${period === p ? 'active' : ''}`}
@@ -97,7 +98,9 @@ export default function Dashboard({ profile, navigateTo }) {
       {/* Stat Cards Row */}
       <div className="grid-4 stagger-children" style={{ marginBottom: 'var(--space-6)' }}>
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(16, 185, 129, 0.15)' }}>🌿</div>
+          <div className="stat-card-icon" style={{ background: 'rgba(16, 185, 129, 0.15)' }}>
+            🌿
+          </div>
           <div className="stat-card-value" style={{ color: 'var(--color-primary)' }}>
             {totalEmissions.toFixed(1)}
           </div>
@@ -113,34 +116,58 @@ export default function Dashboard({ profile, navigateTo }) {
         </div>
 
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(14, 165, 233, 0.15)' }}>📅</div>
+          <div className="stat-card-icon" style={{ background: 'rgba(14, 165, 233, 0.15)' }}>
+            📅
+          </div>
           <div className="stat-card-value" style={{ color: 'var(--color-secondary)' }}>
             {todayEmissions.toFixed(1)}
           </div>
           <div className="stat-card-label">kg CO₂ Today</div>
-          <div style={{ marginTop: 'var(--space-2)', fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)' }}>
-            {activities.filter(a => a.date === today).length} activities logged
+          <div
+            style={{
+              marginTop: 'var(--space-2)',
+              fontSize: 'var(--font-size-xs)',
+              color: 'var(--text-tertiary)',
+            }}
+          >
+            {activities.filter((a) => a.date === today).length} activities logged
           </div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(245, 158, 11, 0.15)' }}>🔥</div>
+          <div className="stat-card-icon" style={{ background: 'rgba(245, 158, 11, 0.15)' }}>
+            🔥
+          </div>
           <div className="stat-card-value" style={{ color: 'var(--color-accent)' }}>
             {streak.current}
           </div>
           <div className="stat-card-label">Day Streak</div>
-          <div style={{ marginTop: 'var(--space-2)', fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)' }}>
+          <div
+            style={{
+              marginTop: 'var(--space-2)',
+              fontSize: 'var(--font-size-xs)',
+              color: 'var(--text-tertiary)',
+            }}
+          >
             Best: {streak.best} days
           </div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(139, 92, 246, 0.15)' }}>🏆</div>
+          <div className="stat-card-icon" style={{ background: 'rgba(139, 92, 246, 0.15)' }}>
+            🏆
+          </div>
           <div className="stat-card-value" style={{ color: '#8B5CF6' }}>
             {completedChallenges.length}
           </div>
           <div className="stat-card-label">Challenges Done</div>
-          <div style={{ marginTop: 'var(--space-2)', fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)' }}>
+          <div
+            style={{
+              marginTop: 'var(--space-2)',
+              fontSize: 'var(--font-size-xs)',
+              color: 'var(--text-tertiary)',
+            }}
+          >
             {achievements.length} badges earned
           </div>
         </div>
@@ -162,9 +189,18 @@ export default function Dashboard({ profile, navigateTo }) {
           />
           <div style={{ marginTop: 'var(--space-4)' }}>
             <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>
-              Projected Annual: <strong style={{ color: ecoRating.color }}>{(annualized / 1000).toFixed(1)} tonnes</strong>
+              Projected Annual:{' '}
+              <strong style={{ color: ecoRating.color }}>
+                {(annualized / 1000).toFixed(1)} tonnes
+              </strong>
             </div>
-            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)', marginTop: 'var(--space-1)' }}>
+            <div
+              style={{
+                fontSize: 'var(--font-size-xs)',
+                color: 'var(--text-tertiary)',
+                marginTop: 'var(--space-1)',
+              }}
+            >
               Goal: {(profile?.goal / 1000 || 4).toFixed(1)} tonnes/year
             </div>
           </div>
@@ -175,14 +211,23 @@ export default function Dashboard({ profile, navigateTo }) {
                 className="progress-bar-fill"
                 style={{
                   width: `${Math.min(100, (annualized / (profile?.goal || 4700)) * 100)}%`,
-                  background: annualized <= (profile?.goal || 4700)
-                    ? 'linear-gradient(90deg, #10B981, #34D399)'
-                    : 'linear-gradient(90deg, #EF4444, #F87171)',
+                  background:
+                    annualized <= (profile?.goal || 4700)
+                      ? 'linear-gradient(90deg, #10B981, #34D399)'
+                      : 'linear-gradient(90deg, #EF4444, #F87171)',
                 }}
               />
             </div>
-            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)', marginTop: 'var(--space-2)' }}>
-              {annualized <= (profile?.goal || 4700) ? '✅ On track to meet your goal!' : '⚠️ Above your annual target'}
+            <div
+              style={{
+                fontSize: 'var(--font-size-xs)',
+                color: 'var(--text-tertiary)',
+                marginTop: 'var(--space-2)',
+              }}
+            >
+              {annualized <= (profile?.goal || 4700)
+                ? '✅ On track to meet your goal!'
+                : '⚠️ Above your annual target'}
             </div>
           </div>
         </div>
@@ -192,18 +237,48 @@ export default function Dashboard({ profile, navigateTo }) {
           <div className="card-header">
             <h2 className="card-title">Category Breakdown</h2>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'var(--space-6)',
+              flexWrap: 'wrap',
+            }}
+          >
             <DonutChart data={donutData} size={180} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
               {donutData.map((d, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontSize: 'var(--font-size-sm)' }}>
-                  <div style={{ width: 12, height: 12, borderRadius: 3, background: d.color, flexShrink: 0 }} />
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--space-2)',
+                    fontSize: 'var(--font-size-sm)',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 12,
+                      height: 12,
+                      borderRadius: 3,
+                      background: d.color,
+                      flexShrink: 0,
+                    }}
+                  />
                   <span style={{ color: 'var(--text-secondary)' }}>{d.label}</span>
-                  <span style={{ fontWeight: 600, marginLeft: 'auto', paddingLeft: 'var(--space-4)' }}>{d.value.toFixed(1)} kg</span>
+                  <span
+                    style={{ fontWeight: 600, marginLeft: 'auto', paddingLeft: 'var(--space-4)' }}
+                  >
+                    {d.value.toFixed(1)} kg
+                  </span>
                 </div>
               ))}
               {donutData.length === 0 && (
-                <span style={{ color: 'var(--text-tertiary)', fontSize: 'var(--font-size-sm)' }}>No data yet. Start logging!</span>
+                <span style={{ color: 'var(--text-tertiary)', fontSize: 'var(--font-size-sm)' }}>
+                  No data yet. Start logging!
+                </span>
               )}
             </div>
           </div>
@@ -232,9 +307,22 @@ export default function Dashboard({ profile, navigateTo }) {
               const isUser = key === profile?.country
               return (
                 <div key={key}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--space-1)', fontSize: 'var(--font-size-sm)' }}>
-                    <span style={{ fontWeight: isUser ? 700 : 400, color: isUser ? 'var(--color-primary)' : 'var(--text-secondary)' }}>
-                      {isUser ? '→ ' : ''}{avg.label}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      marginBottom: 'var(--space-1)',
+                      fontSize: 'var(--font-size-sm)',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontWeight: isUser ? 700 : 400,
+                        color: isUser ? 'var(--color-primary)' : 'var(--text-secondary)',
+                      }}
+                    >
+                      {isUser ? '→ ' : ''}
+                      {avg.label}
                     </span>
                     <span style={{ fontWeight: 600 }}>{(avg.annual / 1000).toFixed(1)}t</span>
                   </div>
@@ -252,12 +340,25 @@ export default function Dashboard({ profile, navigateTo }) {
               )
             })}
             {/* User's projected */}
-            <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: 'var(--space-3)', marginTop: 'var(--space-2)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--space-1)', fontSize: 'var(--font-size-sm)' }}>
+            <div
+              style={{
+                borderTop: '1px solid var(--border-color)',
+                paddingTop: 'var(--space-3)',
+                marginTop: 'var(--space-2)',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  marginBottom: 'var(--space-1)',
+                  fontSize: 'var(--font-size-sm)',
+                }}
+              >
+                <span style={{ fontWeight: 700, color: ecoRating.color }}>🎯 Your Projected</span>
                 <span style={{ fontWeight: 700, color: ecoRating.color }}>
-                  🎯 Your Projected
+                  {(annualized / 1000).toFixed(1)}t
                 </span>
-                <span style={{ fontWeight: 700, color: ecoRating.color }}>{(annualized / 1000).toFixed(1)}t</span>
               </div>
               <div className="progress-bar" style={{ height: 6 }}>
                 <div
@@ -276,7 +377,11 @@ export default function Dashboard({ profile, navigateTo }) {
         <div className="card">
           <div className="card-header">
             <h2 className="card-title">Personalized Tips</h2>
-            <button className="btn btn-sm btn-outline" onClick={() => navigateTo('insights')} id="view-all-tips">
+            <button
+              className="btn btn-sm btn-outline"
+              onClick={() => navigateTo('insights')}
+              id="view-all-tips"
+            >
               View All
             </button>
           </div>
@@ -296,9 +401,19 @@ export default function Dashboard({ profile, navigateTo }) {
               >
                 <span style={{ fontSize: '24px', flexShrink: 0 }}>{tip.icon}</span>
                 <div>
-                  <div style={{ fontSize: 'var(--font-size-sm)', fontWeight: 500, marginBottom: 'var(--space-1)' }}>{tip.tip}</div>
+                  <div
+                    style={{
+                      fontSize: 'var(--font-size-sm)',
+                      fontWeight: 500,
+                      marginBottom: 'var(--space-1)',
+                    }}
+                  >
+                    {tip.tip}
+                  </div>
                   <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
-                    <span className={`badge badge-${tip.impact === 'high' ? 'success' : tip.impact === 'medium' ? 'warning' : 'info'}`}>
+                    <span
+                      className={`badge badge-${tip.impact === 'high' ? 'success' : tip.impact === 'medium' ? 'warning' : 'info'}`}
+                    >
                       {tip.impact} impact
                     </span>
                     <span className="badge badge-info">Save ~{tip.savingsKg} kg/week</span>
@@ -307,7 +422,13 @@ export default function Dashboard({ profile, navigateTo }) {
               </div>
             ))}
             {tips.length === 0 && (
-              <div style={{ textAlign: 'center', padding: 'var(--space-6)', color: 'var(--text-tertiary)' }}>
+              <div
+                style={{
+                  textAlign: 'center',
+                  padding: 'var(--space-6)',
+                  color: 'var(--text-tertiary)',
+                }}
+              >
                 <div style={{ fontSize: '32px', marginBottom: 'var(--space-2)' }}>💡</div>
                 <p>Log some activities to get personalized tips!</p>
               </div>
@@ -317,14 +438,33 @@ export default function Dashboard({ profile, navigateTo }) {
       </div>
 
       {/* Quick Actions */}
-      <div style={{ marginTop: 'var(--space-6)', display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
-        <button className="btn btn-primary btn-lg" onClick={() => navigateTo('logger')} id="quick-log-activity">
+      <div
+        style={{
+          marginTop: 'var(--space-6)',
+          display: 'flex',
+          gap: 'var(--space-4)',
+          flexWrap: 'wrap',
+        }}
+      >
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => navigateTo('logger')}
+          id="quick-log-activity"
+        >
           📝 Log Activity
         </button>
-        <button className="btn btn-secondary btn-lg" onClick={() => navigateTo('calculator')} id="quick-calculator">
+        <button
+          className="btn btn-secondary btn-lg"
+          onClick={() => navigateTo('calculator')}
+          id="quick-calculator"
+        >
           🧮 Calculator
         </button>
-        <button className="btn btn-outline btn-lg" onClick={() => navigateTo('challenges')} id="quick-challenges">
+        <button
+          className="btn btn-outline btn-lg"
+          onClick={() => navigateTo('challenges')}
+          id="quick-challenges"
+        >
           🏆 Challenges
         </button>
       </div>

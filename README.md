@@ -4,6 +4,9 @@
 
 CarbonWise is a smart, dynamic web application that helps individuals understand, track, and reduce their carbon footprint through personalized insights, gamification, and actionable recommendations.
 
+🔗 **Live Deployment:** [CarbonWise on Google Cloud](https://fifth-flame-495223-b4.uc.r.appspot.com)  
+🔗 **GitHub Repository:** [Mydvthukran/carbonwise](https://github.com/Mydvthukran/carbonwise)
+
 ![CarbonWise Dashboard](https://img.shields.io/badge/CarbonWise-v1.0.0-10B981?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6IiBmaWxsPSIjMTBCOTgxIi8+PC9zdmc+)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite)

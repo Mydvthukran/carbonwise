@@ -7,7 +7,7 @@ import {
   getCategoryBreakdown,
   getToday,
   getDateDaysAgo,
-  startChallenge
+  startChallenge,
 } from '../utils/storage'
 
 export default function Assistant({ addToast, navigateTo }) {
@@ -16,8 +16,8 @@ export default function Assistant({ addToast, navigateTo }) {
       id: 'm1',
       sender: 'assistant',
       text: "Hello! I am your CarbonWise Eco-Assistant. 🌿 I'm here to help you understand, track, and reduce your carbon footprint. You can ask me questions about your footprint, ask for reduction tips, or request calculator advice. Try one of the quick prompts below!",
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    },
   ])
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
@@ -35,14 +35,19 @@ export default function Assistant({ addToast, navigateTo }) {
     { label: '💡 Give me a daily tip', action: 'tip' },
     { label: '🏆 Suggest a challenge', action: 'challenge' },
     { label: '🥩 Impact of eating beef?', action: 'beef' },
-    { label: '🚗 Impact of driving a car?', action: 'car' }
+    { label: '🚗 Impact of driving a car?', action: 'car' },
   ]
 
   const getSystemResponse = (userInput) => {
     const query = userInput.toLowerCase().trim()
 
     // 1. Analyze emissions
-    if (query.includes('analyze') || query.includes('highest') || query.includes('source') || query.includes('footprint')) {
+    if (
+      query.includes('analyze') ||
+      query.includes('highest') ||
+      query.includes('source') ||
+      query.includes('footprint')
+    ) {
       if (!activities || activities.length === 0) {
         return "You haven't logged any daily activities yet! Go to the **Activity Log** tab to start logging, or use the **Calculator** to estimate your annual footprint. Once you log some activities, I can analyze your patterns and show your biggest emission sources."
       }
@@ -58,7 +63,9 @@ export default function Assistant({ addToast, navigateTo }) {
       const [topCat, topVal] = sorted[0]
       const percentage = ((topVal / total) * 100).toFixed(0)
       const catTips = ECO_TIPS[topCat] || []
-      const recommendedTip = catTips[0] ? `\n\n**Actionable Tip:**\n- ${recommendedTipText(catTips[0])}` : ''
+      const recommendedTip = catTips[0]
+        ? `\n\n**Actionable Tip:**\n- ${recommendedTipText(catTips[0])}`
+        : ''
 
       return `Based on your logs over the last 30 days, your total emissions are **${total.toFixed(1)} kg CO₂**.\n\nYour highest emission source is **${topCat.toUpperCase()}**, accounting for **${topVal.toFixed(1)} kg CO₂ (${percentage}%)** of your total footprint.${recommendedTip}\n\nWould you like me to recommend a challenge to help reduce this?`
     }
@@ -69,7 +76,12 @@ export default function Assistant({ addToast, navigateTo }) {
     }
 
     // 2. Daily Tip
-    if (query.includes('tip') || query.includes('advice') || query.includes('recommendation') || query.includes('suggest')) {
+    if (
+      query.includes('tip') ||
+      query.includes('advice') ||
+      query.includes('recommendation') ||
+      query.includes('suggest')
+    ) {
       const allCategories = Object.keys(ECO_TIPS)
       const randomCategory = allCategories[Math.floor(Math.random() * allCategories.length)]
       const categoryTips = ECO_TIPS[randomCategory]
@@ -87,14 +99,25 @@ export default function Assistant({ addToast, navigateTo }) {
     }
 
     // 4. Beef Carbon Footprint
-    if (query.includes('beef') || query.includes('meat') || query.includes('lamb') || query.includes('steak')) {
+    if (
+      query.includes('beef') ||
+      query.includes('meat') ||
+      query.includes('lamb') ||
+      query.includes('steak')
+    ) {
       const beefFactor = EMISSION_FACTORS.food.beef.factor
       const tofuFactor = EMISSION_FACTORS.food.tofu.factor
       return `Eating beef has one of the highest carbon footprints of any food item. 🥩\n\n- **Emissions:** **${beefFactor} kg CO₂** per kg of beef consumed.\n- **Comparison:** Tofu emits just **${tofuFactor} kg CO₂** per kg — that's a **92% reduction**!\n- **Action:** Swapping just one beef meal a week for a vegetarian meal (like lentils, beans, or tofu) saves about **3.5 kg CO₂/week**.`
     }
 
     // 5. Driving / Car Footprint
-    if (query.includes('car') || query.includes('drive') || query.includes('driving') || query.includes('petrol') || query.includes('diesel')) {
+    if (
+      query.includes('car') ||
+      query.includes('drive') ||
+      query.includes('driving') ||
+      query.includes('petrol') ||
+      query.includes('diesel')
+    ) {
       const petrolFactor = EMISSION_FACTORS.transport.car_petrol.factor
       const electricFactor = EMISSION_FACTORS.transport.car_electric.factor
       const trainFactor = EMISSION_FACTORS.transport.train.factor
@@ -105,7 +128,7 @@ export default function Assistant({ addToast, navigateTo }) {
     // 6. Generic Calculator query (Parsing numbers + keywords)
     const kmMatch = query.match(/(\d+(?:\.\d+)?)\s*(?:km|kilometers?)/)
     const hrsMatch = query.match(/(\d+(?:\.\d+)?)\s*(?:hr|hrs|hours?)/)
-    
+
     if (kmMatch) {
       const dist = parseFloat(kmMatch[1])
       const emissionsPetrol = dist * EMISSION_FACTORS.transport.car_petrol.factor
@@ -126,13 +149,13 @@ export default function Assistant({ addToast, navigateTo }) {
 
     if (query.includes('score') || query.includes('grade')) {
       if (profile && profile.annualEstimate) {
-        return `Your calculated annual footprint is **${(profile.annualEstimate).toFixed(0)} kg CO₂/year**. Based on this, your eco grade is **${profile.ecoGrade || 'Pending'}**.\n\nYou can improve your grade by completing challenges and reducing daily logs. Try asking for a "daily tip" to get started!`
+        return `Your calculated annual footprint is **${profile.annualEstimate.toFixed(0)} kg CO₂/year**. Based on this, your eco grade is **${profile.ecoGrade || 'Pending'}**.\n\nYou can improve your grade by completing challenges and reducing daily logs. Try asking for a "daily tip" to get started!`
       }
       return "You haven't completed the carbon calculator setup yet! Go to the **Calculator** tab to find out your starting Eco Score and grade."
     }
 
     // Default response
-    return "I'm not sure about that specific request, but I can help you with your carbon footprint! Try asking:\n- \"Analyze my highest emissions\"\n- \"Give me a daily tip\"\n- \"Suggest a challenge\"\n- \"Impact of eating beef\"\n- \"Impact of driving a car\"\n- Or type a distance/duration to calculate (e.g., \"15 km\" or \"4 hours AC\")"
+    return 'I\'m not sure about that specific request, but I can help you with your carbon footprint! Try asking:\n- "Analyze my highest emissions"\n- "Give me a daily tip"\n- "Suggest a challenge"\n- "Impact of eating beef"\n- "Impact of driving a car"\n- Or type a distance/duration to calculate (e.g., "15 km" or "4 hours AC")'
   }
 
   const handleSend = (textToSend) => {
@@ -143,10 +166,10 @@ export default function Assistant({ addToast, navigateTo }) {
       id: `m_${Date.now()}_u`,
       sender: 'user',
       text: text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     }
 
-    setMessages(prev => [...prev, userMsg])
+    setMessages((prev) => [...prev, userMsg])
     setInput('')
     setIsTyping(true)
 
@@ -156,25 +179,49 @@ export default function Assistant({ addToast, navigateTo }) {
         id: `m_${Date.now()}_a`,
         sender: 'assistant',
         text: responseText,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       }
-      setMessages(prev => [...prev, assistantMsg])
+      setMessages((prev) => [...prev, assistantMsg])
       setIsTyping(false)
     }, 800)
   }
 
   return (
-    <div className="animate-fade-in-up" style={{ height: 'calc(100vh - 120px)', display: 'flex', flexDirection: 'column' }}>
+    <div
+      className="animate-fade-in-up"
+      style={{ height: 'calc(100vh - 120px)', display: 'flex', flexDirection: 'column' }}
+    >
       <div className="page-header" style={{ marginBottom: 'var(--space-4)' }}>
         <h1>Eco Assistant 💬</h1>
-        <p>Chat with your personal sustainability advisor for instant calculations and smart recommendations</p>
+        <p>
+          Chat with your personal sustainability advisor for instant calculations and smart
+          recommendations
+        </p>
       </div>
 
       {/* Chat Box */}
-      <div className="card" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 0 }}>
+      <div
+        className="card"
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+          padding: 0,
+        }}
+      >
         {/* Messages Screen */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: 'var(--space-4)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-          {messages.map(msg => (
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: 'var(--space-4)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-4)',
+          }}
+        >
+          {messages.map((msg) => (
             <div
               key={msg.id}
               style={{
@@ -182,12 +229,13 @@ export default function Assistant({ addToast, navigateTo }) {
                 maxWidth: '75%',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: msg.sender === 'user' ? 'flex-end' : 'flex-start'
+                alignItems: msg.sender === 'user' ? 'flex-end' : 'flex-start',
               }}
             >
               <div
                 style={{
-                  background: msg.sender === 'user' ? 'var(--color-primary)' : 'var(--bg-secondary)',
+                  background:
+                    msg.sender === 'user' ? 'var(--color-primary)' : 'var(--bg-secondary)',
                   color: msg.sender === 'user' ? '#fff' : 'var(--text-primary)',
                   padding: 'var(--space-3) var(--space-4)',
                   borderRadius: msg.sender === 'user' ? '18px 18px 2px 18px' : '18px 18px 18px 2px',
@@ -195,7 +243,7 @@ export default function Assistant({ addToast, navigateTo }) {
                   whiteSpace: 'pre-line',
                   fontSize: 'var(--font-size-sm)',
                   boxShadow: 'var(--shadow-sm)',
-                  lineHeight: '1.5'
+                  lineHeight: '1.5',
                 }}
               >
                 {/* Safe text formatting with markdown-like bold parsing */}
@@ -204,36 +252,100 @@ export default function Assistant({ addToast, navigateTo }) {
                   const parts = line.split('**')
                   return (
                     <div key={i} style={{ minHeight: '1em' }}>
-                      {parts.map((part, pi) => (
+                      {parts.map((part, pi) =>
                         pi % 2 === 1 ? <strong key={pi}>{part}</strong> : part
-                      ))}
+                      )}
                     </div>
                   )
                 })}
               </div>
-              <span style={{ fontSize: '10px', color: 'var(--text-tertiary)', marginTop: '4px', padding: '0 4px' }}>
+              <span
+                style={{
+                  fontSize: '10px',
+                  color: 'var(--text-tertiary)',
+                  marginTop: '4px',
+                  padding: '0 4px',
+                }}
+              >
                 {msg.time}
               </span>
             </div>
           ))}
-          
+
           {isTyping && (
-            <div style={{ alignSelf: 'flex-start', display: 'flex', gap: '4px', padding: 'var(--space-2) var(--space-4)', background: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-              <span className="typing-dot" style={{ width: '6px', height: '6px', background: 'var(--text-secondary)', borderRadius: '50%', display: 'inline-block', animation: 'bounce 1s infinite' }} />
-              <span className="typing-dot" style={{ width: '6px', height: '6px', background: 'var(--text-secondary)', borderRadius: '50%', display: 'inline-block', animation: 'bounce 1s infinite 0.2s' }} />
-              <span className="typing-dot" style={{ width: '6px', height: '6px', background: 'var(--text-secondary)', borderRadius: '50%', display: 'inline-block', animation: 'bounce 1s infinite 0.4s' }} />
+            <div
+              style={{
+                alignSelf: 'flex-start',
+                display: 'flex',
+                gap: '4px',
+                padding: 'var(--space-2) var(--space-4)',
+                background: 'var(--bg-secondary)',
+                borderRadius: '12px',
+                border: '1px solid var(--border-color)',
+              }}
+            >
+              <span
+                className="typing-dot"
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  background: 'var(--text-secondary)',
+                  borderRadius: '50%',
+                  display: 'inline-block',
+                  animation: 'bounce 1s infinite',
+                }}
+              />
+              <span
+                className="typing-dot"
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  background: 'var(--text-secondary)',
+                  borderRadius: '50%',
+                  display: 'inline-block',
+                  animation: 'bounce 1s infinite 0.2s',
+                }}
+              />
+              <span
+                className="typing-dot"
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  background: 'var(--text-secondary)',
+                  borderRadius: '50%',
+                  display: 'inline-block',
+                  animation: 'bounce 1s infinite 0.4s',
+                }}
+              />
             </div>
           )}
           <div ref={chatEndRef} />
         </div>
 
         {/* Quick Prompts Chips */}
-        <div style={{ padding: 'var(--space-3) var(--space-4)', borderTop: '1px solid var(--border-color)', background: 'rgba(255,255,255,0.01)', overflowX: 'auto', whiteSpace: 'nowrap', display: 'flex', gap: 'var(--space-2)' }}>
+        <div
+          style={{
+            padding: 'var(--space-3) var(--space-4)',
+            borderTop: '1px solid var(--border-color)',
+            background: 'rgba(255,255,255,0.01)',
+            overflowX: 'auto',
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            gap: 'var(--space-2)',
+          }}
+        >
           {quickPrompts.map((p, idx) => (
             <button
               key={idx}
               className="badge badge-info"
-              onClick={() => handleSend(p.label.replace(/^[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDC00-\uDFFF]\s*/g, ''))}
+              onClick={() =>
+                handleSend(
+                  p.label.replace(
+                    /^[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDC00-\uDFFF]\s*/g,
+                    ''
+                  )
+                )
+              }
               style={{
                 cursor: 'pointer',
                 border: '1px solid var(--border-color)',
@@ -246,7 +358,7 @@ export default function Assistant({ addToast, navigateTo }) {
                 gap: '4px',
                 background: 'var(--bg-secondary)',
                 color: 'var(--text-secondary)',
-                transition: 'all var(--transition-fast)'
+                transition: 'all var(--transition-fast)',
               }}
               onMouseEnter={(e) => {
                 e.target.style.background = 'rgba(16, 185, 129, 0.08)'
@@ -264,8 +376,17 @@ export default function Assistant({ addToast, navigateTo }) {
 
         {/* Input Bar */}
         <form
-          onSubmit={(e) => { e.preventDefault(); handleSend(); }}
-          style={{ display: 'flex', padding: 'var(--space-3)', borderTop: '1px solid var(--border-color)', gap: 'var(--space-2)', background: 'var(--bg-secondary)' }}
+          onSubmit={(e) => {
+            e.preventDefault()
+            handleSend()
+          }}
+          style={{
+            display: 'flex',
+            padding: 'var(--space-3)',
+            borderTop: '1px solid var(--border-color)',
+            gap: 'var(--space-2)',
+            background: 'var(--bg-secondary)',
+          }}
         >
           <input
             type="text"
@@ -279,7 +400,12 @@ export default function Assistant({ addToast, navigateTo }) {
           <button
             type="submit"
             className="btn btn-primary"
-            style={{ padding: '0 var(--space-5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            style={{
+              padding: '0 var(--space-5)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             aria-label="Send message"
           >
             Send ✈️

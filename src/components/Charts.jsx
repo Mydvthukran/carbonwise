@@ -19,7 +19,7 @@ export function BarChart({ data, width = 600, height = 250, barColor = 'var(--co
     )
   }
 
-  const maxValue = Math.max(...data.map(d => d.value), 1)
+  const maxValue = Math.max(...data.map((d) => d.value), 1)
   const barWidth = Math.min(30, (chartWidth / data.length) * 0.6)
   const barGap = chartWidth / data.length
 
@@ -147,13 +147,21 @@ export function DonutChart({ data, size = 200, strokeWidth = 28 }) {
 
   if (total === 0) {
     return (
-      <div style={{ width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ color: 'var(--text-tertiary)', fontSize: 'var(--font-size-sm)' }}>No data</span>
+      <div
+        style={{
+          width: size,
+          height: size,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <span style={{ color: 'var(--text-tertiary)', fontSize: 'var(--font-size-sm)' }}>
+          No data
+        </span>
       </div>
     )
   }
-
-  let cumulativePercent = 0
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -170,10 +178,11 @@ export function DonutChart({ data, size = 200, strokeWidth = 28 }) {
 
         {/* Segments */}
         {data.map((d, i) => {
+          const previousTotal = data.slice(0, i).reduce((sum, item) => sum + item.value, 0)
+          const cumulativePercent = previousTotal / total
           const percent = d.value / total
           const dashLength = percent * circumference
           const dashOffset = -cumulativePercent * circumference
-          cumulativePercent += percent
           const isHovered = hoveredIndex === i
 
           return (
@@ -213,7 +222,13 @@ export function DonutChart({ data, size = 200, strokeWidth = 28 }) {
       >
         {hoveredIndex !== null ? (
           <>
-            <div style={{ fontSize: 'var(--font-size-lg)', fontWeight: 700, color: data[hoveredIndex].color }}>
+            <div
+              style={{
+                fontSize: 'var(--font-size-lg)',
+                fontWeight: 700,
+                color: data[hoveredIndex].color,
+              }}
+            >
               {((data[hoveredIndex].value / total) * 100).toFixed(0)}%
             </div>
             <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)' }}>
@@ -238,7 +253,13 @@ export function DonutChart({ data, size = 200, strokeWidth = 28 }) {
 /**
  * SVG Area Chart / Line Chart component
  */
-export function AreaChart({ data, width = 600, height = 200, color = 'var(--color-primary)', showArea = true }) {
+export function AreaChart({
+  data,
+  width = 600,
+  height = 200,
+  color = 'var(--color-primary)',
+  showArea = true,
+}) {
   const [hoveredIndex, setHoveredIndex] = useState(null)
   const padding = { top: 20, right: 20, bottom: 30, left: 45 }
   const chartWidth = width - padding.left - padding.right
@@ -248,7 +269,7 @@ export function AreaChart({ data, width = 600, height = 200, color = 'var(--colo
     return null
   }
 
-  const maxValue = Math.max(...data.map(d => d.value), 1)
+  const maxValue = Math.max(...data.map((d) => d.value), 1)
   const xStep = chartWidth / (data.length - 1 || 1)
 
   const points = data.map((d, i) => ({
@@ -258,7 +279,9 @@ export function AreaChart({ data, width = 600, height = 200, color = 'var(--colo
   }))
 
   const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ')
-  const areaPath = linePath + ` L ${points[points.length - 1].x} ${padding.top + chartHeight} L ${points[0].x} ${padding.top + chartHeight} Z`
+  const areaPath =
+    linePath +
+    ` L ${points[points.length - 1].x} ${padding.top + chartHeight} L ${points[0].x} ${padding.top + chartHeight} Z`
 
   return (
     <svg width="100%" viewBox={`0 0 ${width} ${height}`} style={{ overflow: 'visible' }}>
@@ -274,8 +297,22 @@ export function AreaChart({ data, width = 600, height = 200, color = 'var(--colo
         const y = padding.top + chartHeight * (1 - pct)
         return (
           <g key={`grid-${i}`}>
-            <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} stroke="var(--border-color)" strokeDasharray="4,4" />
-            <text x={padding.left - 8} y={y + 4} textAnchor="end" fill="var(--text-tertiary)" fontSize="10" fontFamily="var(--font-family)">
+            <line
+              x1={padding.left}
+              y1={y}
+              x2={width - padding.right}
+              y2={y}
+              stroke="var(--border-color)"
+              strokeDasharray="4,4"
+            />
+            <text
+              x={padding.left - 8}
+              y={y + 4}
+              textAnchor="end"
+              fill="var(--text-tertiary)"
+              fontSize="10"
+              fontFamily="var(--font-family)"
+            >
               {(maxValue * pct).toFixed(1)}
             </text>
           </g>
@@ -286,17 +323,58 @@ export function AreaChart({ data, width = 600, height = 200, color = 'var(--colo
       {showArea && <path d={areaPath} fill="url(#areaGrad)" />}
 
       {/* Line */}
-      <path d={linePath} fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d={linePath}
+        fill="none"
+        stroke={color}
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
 
       {/* Data points */}
       {points.map((p, i) => (
-        <g key={i} onMouseEnter={() => setHoveredIndex(i)} onMouseLeave={() => setHoveredIndex(null)}>
-          <circle cx={p.x} cy={p.y} r={hoveredIndex === i ? 6 : 3} fill={color} style={{ transition: 'r 200ms ease', cursor: 'pointer' }} />
+        <g
+          key={i}
+          onMouseEnter={() => setHoveredIndex(i)}
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          <circle
+            cx={p.x}
+            cy={p.y}
+            r={hoveredIndex === i ? 6 : 3}
+            fill={color}
+            style={{ transition: 'r 200ms ease', cursor: 'pointer' }}
+          />
           {hoveredIndex === i && (
             <>
-              <line x1={p.x} y1={p.y} x2={p.x} y2={padding.top + chartHeight} stroke={color} strokeDasharray="3,3" opacity="0.4" />
-              <rect x={p.x - 35} y={p.y - 32} width={70} height={24} rx={6} fill="var(--bg-secondary)" stroke="var(--border-color)" />
-              <text x={p.x} y={p.y - 16} textAnchor="middle" fill="var(--text-primary)" fontSize="11" fontWeight="600" fontFamily="var(--font-family)">
+              <line
+                x1={p.x}
+                y1={p.y}
+                x2={p.x}
+                y2={padding.top + chartHeight}
+                stroke={color}
+                strokeDasharray="3,3"
+                opacity="0.4"
+              />
+              <rect
+                x={p.x - 35}
+                y={p.y - 32}
+                width={70}
+                height={24}
+                rx={6}
+                fill="var(--bg-secondary)"
+                stroke="var(--border-color)"
+              />
+              <text
+                x={p.x}
+                y={p.y - 16}
+                textAnchor="middle"
+                fill="var(--text-primary)"
+                fontSize="11"
+                fontWeight="600"
+                fontFamily="var(--font-family)"
+              >
                 {p.value.toFixed(1)} kg
               </text>
             </>
@@ -305,11 +383,21 @@ export function AreaChart({ data, width = 600, height = 200, color = 'var(--colo
       ))}
 
       {/* X-axis labels */}
-      {points.filter((_, i) => data.length <= 10 || i % Math.ceil(data.length / 8) === 0).map((p, i) => (
-        <text key={`label-${i}`} x={p.x} y={height - 5} textAnchor="middle" fill="var(--text-tertiary)" fontSize="10" fontFamily="var(--font-family)">
-          {p.label}
-        </text>
-      ))}
+      {points
+        .filter((_, i) => data.length <= 10 || i % Math.ceil(data.length / 8) === 0)
+        .map((p, i) => (
+          <text
+            key={`label-${i}`}
+            x={p.x}
+            y={height - 5}
+            textAnchor="middle"
+            fill="var(--text-tertiary)"
+            fontSize="10"
+            fontFamily="var(--font-family)"
+          >
+            {p.label}
+          </text>
+        ))}
     </svg>
   )
 }
@@ -345,7 +433,12 @@ export function Sparkline({ data, width = 120, height = 40, color = 'var(--color
         fill={`url(#spark-${color})`}
       />
       <path d={path} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" />
-      <circle cx={points[points.length - 1].x} cy={points[points.length - 1].y} r="3" fill={color} />
+      <circle
+        cx={points[points.length - 1].x}
+        cy={points[points.length - 1].y}
+        r="3"
+        fill={color}
+      />
     </svg>
   )
 }
@@ -386,13 +479,21 @@ export function CalendarHeatmap({ data, weeks = 12 }) {
     <div style={{ overflowX: 'auto' }}>
       <svg width={weeks * totalSize + 30} height={7 * totalSize + 10}>
         {/* Day labels */}
-        {dayLabels.map((label, i) => (
-          label && (
-            <text key={i} x={0} y={i * totalSize + cellSize + 2} fill="var(--text-tertiary)" fontSize="9" fontFamily="var(--font-family)">
-              {label}
-            </text>
-          )
-        ))}
+        {dayLabels.map(
+          (label, i) =>
+            label && (
+              <text
+                key={i}
+                x={0}
+                y={i * totalSize + cellSize + 2}
+                fill="var(--text-tertiary)"
+                fontSize="9"
+                fontFamily="var(--font-family)"
+              >
+                {label}
+              </text>
+            )
+        )}
 
         {/* Cells */}
         {days.map((d, i) => (

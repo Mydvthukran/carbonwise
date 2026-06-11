@@ -69,8 +69,12 @@ export default function EcoScoreRing({ score, grade, label, color, size = 180 })
         />
       </svg>
       <div className="eco-ring-label">
-        <div className="eco-ring-value" style={{ color }}>{animatedScore}</div>
-        <div className="eco-ring-text">{grade} • {label}</div>
+        <div className="eco-ring-value" style={{ color }}>
+          {animatedScore}
+        </div>
+        <div className="eco-ring-text">
+          {grade} • {label}
+        </div>
       </div>
     </div>
   )

@@ -4,7 +4,8 @@ const STEPS = [
   {
     icon: '🌍',
     title: 'Welcome to CarbonWise',
-    subtitle: 'Your personal carbon footprint tracker & advisor. Let\'s set up your profile to get started with personalized insights.',
+    subtitle:
+      "Your personal carbon footprint tracker & advisor. Let's set up your profile to get started with personalized insights.",
   },
   {
     icon: '👤',
@@ -15,7 +16,7 @@ const STEPS = [
   {
     icon: '🎯',
     title: 'Set your eco goal',
-    subtitle: 'Choose an annual carbon target. Don\'t worry — you can change this anytime.',
+    subtitle: "Choose an annual carbon target. Don't worry — you can change this anytime.",
     goals: true,
   },
 ]
@@ -30,9 +31,27 @@ const COUNTRIES = [
 ]
 
 const GOAL_OPTIONS = [
-  { value: 2500, label: 'Ambitious', desc: '2.5 tonnes/year – Paris Agreement target', icon: '🌟', color: '#10B981' },
-  { value: 4000, label: 'Moderate', desc: '4.0 tonnes/year – Below world average', icon: '🎯', color: '#0EA5E9' },
-  { value: 6000, label: 'Gradual', desc: '6.0 tonnes/year – Steady improvement', icon: '📈', color: '#F59E0B' },
+  {
+    value: 2500,
+    label: 'Ambitious',
+    desc: '2.5 tonnes/year – Paris Agreement target',
+    icon: '🌟',
+    color: '#10B981',
+  },
+  {
+    value: 4000,
+    label: 'Moderate',
+    desc: '4.0 tonnes/year – Below world average',
+    icon: '🎯',
+    color: '#0EA5E9',
+  },
+  {
+    value: 6000,
+    label: 'Gradual',
+    desc: '6.0 tonnes/year – Steady improvement',
+    icon: '📈',
+    color: '#F59E0B',
+  },
 ]
 
 export default function Onboarding({ onComplete }) {
@@ -70,9 +89,18 @@ export default function Onboarding({ onComplete }) {
         <p className="onboarding-subtitle">{STEPS[step].subtitle}</p>
 
         {/* Step indicators */}
-        <div className="onboarding-steps" role="progressbar" aria-valuenow={step + 1} aria-valuemin="1" aria-valuemax={STEPS.length}>
+        <div
+          className="onboarding-steps"
+          role="progressbar"
+          aria-valuenow={step + 1}
+          aria-valuemin="1"
+          aria-valuemax={STEPS.length}
+        >
           {STEPS.map((_, i) => (
-            <div key={i} className={`onboarding-step ${i === step ? 'active' : ''} ${i < step ? 'completed' : ''}`} />
+            <div
+              key={i}
+              className={`onboarding-step ${i === step ? 'active' : ''} ${i < step ? 'completed' : ''}`}
+            />
           ))}
         </div>
 
@@ -80,29 +108,34 @@ export default function Onboarding({ onComplete }) {
         {step === 1 && (
           <div className="onboarding-form animate-fade-in-up">
             <div className="form-group">
-              <label className="form-label" htmlFor="onboard-name">Your Name</label>
+              <label className="form-label" htmlFor="onboard-name">
+                Your Name
+              </label>
               <input
                 id="onboard-name"
                 type="text"
                 className="form-input"
                 placeholder="Enter your name"
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
                 maxLength={50}
-                autoFocus
                 aria-required="true"
               />
             </div>
             <div className="form-group">
-              <label className="form-label" htmlFor="onboard-country">Your Country / Region</label>
+              <label className="form-label" htmlFor="onboard-country">
+                Your Country / Region
+              </label>
               <select
                 id="onboard-country"
                 className="form-select"
                 value={country}
-                onChange={e => setCountry(e.target.value)}
+                onChange={(e) => setCountry(e.target.value)}
               >
-                {COUNTRIES.map(c => (
-                  <option key={c.value} value={c.value}>{c.label}</option>
+                {COUNTRIES.map((c) => (
+                  <option key={c.value} value={c.value}>
+                    {c.label}
+                  </option>
                 ))}
               </select>
             </div>
@@ -113,7 +146,7 @@ export default function Onboarding({ onComplete }) {
         {step === 2 && (
           <div className="onboarding-form animate-fade-in-up">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-              {GOAL_OPTIONS.map(opt => (
+              {GOAL_OPTIONS.map((opt) => (
                 <button
                   key={opt.value}
                   className="card"
@@ -129,10 +162,18 @@ export default function Onboarding({ onComplete }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <span style={{ fontSize: '28px' }}>{opt.icon}</span>
                     <div>
-                      <div style={{ fontWeight: 700, fontSize: 'var(--font-size-lg)', color: goal === opt.value ? opt.color : 'var(--text-primary)' }}>
+                      <div
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 'var(--font-size-lg)',
+                          color: goal === opt.value ? opt.color : 'var(--text-primary)',
+                        }}
+                      >
                         {opt.label}
                       </div>
-                      <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>
+                      <div
+                        style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}
+                      >
                         {opt.desc}
                       </div>
                     </div>
@@ -147,7 +188,14 @@ export default function Onboarding({ onComplete }) {
         )}
 
         {/* Navigation Buttons */}
-        <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center', marginTop: 'var(--space-6)' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: 'var(--space-4)',
+            justifyContent: 'center',
+            marginTop: 'var(--space-6)',
+          }}
+        >
           {step > 0 && (
             <button className="btn btn-secondary btn-lg" onClick={handleBack}>
               ← Back

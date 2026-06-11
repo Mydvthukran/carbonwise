@@ -1,10 +1,24 @@
 import React from 'react'
 
-export default function Sidebar({ currentPage, onNavigate, pages, isOpen, onClose, theme, onThemeToggle }) {
+export default function Sidebar({
+  currentPage,
+  onNavigate,
+  pages,
+  isOpen,
+  onClose,
+  theme,
+  onThemeToggle,
+}) {
   return (
-    <aside className={`sidebar ${isOpen ? 'open' : ''}`} role="navigation" aria-label="Main navigation">
+    <aside
+      className={`sidebar ${isOpen ? 'open' : ''}`}
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div className="sidebar-logo">
-        <div className="sidebar-logo-icon" aria-hidden="true">🌿</div>
+        <div className="sidebar-logo-icon" aria-hidden="true">
+          🌿
+        </div>
         <h1>CarbonWise</h1>
       </div>
 
@@ -18,7 +32,9 @@ export default function Sidebar({ currentPage, onNavigate, pages, isOpen, onClos
             aria-current={currentPage === key ? 'page' : undefined}
             aria-label={`Navigate to ${page.label}`}
           >
-            <span className="nav-icon" aria-hidden="true">{page.icon}</span>
+            <span className="nav-icon" aria-hidden="true">
+              {page.icon}
+            </span>
             <span className="nav-label">{page.label}</span>
           </button>
         ))}
@@ -31,7 +47,9 @@ export default function Sidebar({ currentPage, onNavigate, pages, isOpen, onClos
           aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           id="theme-toggle"
         >
-          <span className="nav-icon" aria-hidden="true">{theme === 'dark' ? '☀️' : '🌙'}</span>
+          <span className="nav-icon" aria-hidden="true">
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </span>
           <span className="nav-label">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
         </button>
       </div>

@@ -53,23 +53,27 @@ export default function ChallengesPage({ addToast }) {
     addToast({ type: 'info', title: 'Challenge removed' })
   }
 
-  const activeIds = new Set(activeChallenges.map(c => c.id))
-  const completedIds = new Set(completedChallenges.map(c => c.id))
+  const activeIds = new Set(activeChallenges.map((c) => c.id))
+  const completedIds = new Set(completedChallenges.map((c) => c.id))
 
   const availableChallenges = useMemo(() => {
-    let filtered = CHALLENGES.filter(c => !activeIds.has(c.id) && !completedIds.has(c.id))
+    let filtered = CHALLENGES.filter((c) => !activeIds.has(c.id) && !completedIds.has(c.id))
     if (filterDifficulty !== 'all') {
-      filtered = filtered.filter(c => c.difficulty === filterDifficulty)
+      filtered = filtered.filter((c) => c.difficulty === filterDifficulty)
     }
     return filtered
   }, [filterDifficulty, activeIds, completedIds])
 
   const getDifficultyColor = (diff) => {
     switch (diff) {
-      case 'easy': return 'badge-success'
-      case 'medium': return 'badge-warning'
-      case 'hard': return 'badge-danger'
-      default: return 'badge-info'
+      case 'easy':
+        return 'badge-success'
+      case 'medium':
+        return 'badge-warning'
+      case 'hard':
+        return 'badge-danger'
+      default:
+        return 'badge-info'
     }
   }
 
@@ -86,21 +90,27 @@ export default function ChallengesPage({ addToast }) {
       {/* Stats Bar */}
       <div className="grid-3 stagger-children" style={{ marginBottom: 'var(--space-6)' }}>
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(16, 185, 129, 0.15)' }}>🎯</div>
+          <div className="stat-card-icon" style={{ background: 'rgba(16, 185, 129, 0.15)' }}>
+            🎯
+          </div>
           <div className="stat-card-value" style={{ color: 'var(--color-primary)' }}>
             {activeChallenges.length}
           </div>
           <div className="stat-card-label">Active Challenges</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(245, 158, 11, 0.15)' }}>✅</div>
+          <div className="stat-card-icon" style={{ background: 'rgba(245, 158, 11, 0.15)' }}>
+            ✅
+          </div>
           <div className="stat-card-value" style={{ color: 'var(--color-accent)' }}>
             {completedChallenges.length}
           </div>
           <div className="stat-card-label">Completed</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(139, 92, 246, 0.15)' }}>⚡</div>
+          <div className="stat-card-icon" style={{ background: 'rgba(139, 92, 246, 0.15)' }}>
+            ⚡
+          </div>
           <div className="stat-card-value" style={{ color: '#8B5CF6' }}>
             {totalXP}
           </div>
@@ -140,35 +150,68 @@ export default function ChallengesPage({ addToast }) {
       {view === 'available' && (
         <>
           {/* Difficulty Filter */}
-          <div style={{ marginBottom: 'var(--space-4)', display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
-            {['all', 'easy', 'medium', 'hard'].map(d => (
+          <div
+            style={{
+              marginBottom: 'var(--space-4)',
+              display: 'flex',
+              gap: 'var(--space-2)',
+              flexWrap: 'wrap',
+            }}
+          >
+            {['all', 'easy', 'medium', 'hard'].map((d) => (
               <button
                 key={d}
                 className={`btn btn-sm ${filterDifficulty === d ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setFilterDifficulty(d)}
               >
-                {d === 'all' ? '🌐 All' : d === 'easy' ? '🟢 Easy' : d === 'medium' ? '🟡 Medium' : '🔴 Hard'}
+                {d === 'all'
+                  ? '🌐 All'
+                  : d === 'easy'
+                    ? '🟢 Easy'
+                    : d === 'medium'
+                      ? '🟡 Medium'
+                      : '🔴 Hard'}
               </button>
             ))}
           </div>
 
           <div className="grid-2 stagger-children">
-            {availableChallenges.map(challenge => (
+            {availableChallenges.map((challenge) => (
               <div key={challenge.id} className="card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 'var(--space-3)' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    marginBottom: 'var(--space-3)',
+                  }}
+                >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <span style={{ fontSize: '36px' }}>{challenge.icon}</span>
                     <div>
-                      <h3 style={{ fontWeight: 700, marginBottom: 'var(--space-1)' }}>{challenge.title}</h3>
-                      <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>
+                      <h3 style={{ fontWeight: 700, marginBottom: 'var(--space-1)' }}>
+                        {challenge.title}
+                      </h3>
+                      <p
+                        style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}
+                      >
                         {challenge.description}
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap', marginBottom: 'var(--space-4)' }}>
-                  <span className={`badge ${getDifficultyColor(challenge.difficulty)}`}>{challenge.difficulty}</span>
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 'var(--space-2)',
+                    flexWrap: 'wrap',
+                    marginBottom: 'var(--space-4)',
+                  }}
+                >
+                  <span className={`badge ${getDifficultyColor(challenge.difficulty)}`}>
+                    {challenge.difficulty}
+                  </span>
                   <span className="badge badge-info">{challenge.duration} days</span>
                   <span className="badge badge-warning">⚡ {challenge.xp} XP</span>
                   <span className="badge badge-success">-{challenge.targetSavings} kg CO₂</span>
@@ -178,7 +221,9 @@ export default function ChallengesPage({ addToast }) {
                   <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)' }}>
                     {CATEGORIES[challenge.category]?.icon} {CATEGORIES[challenge.category]?.label}
                   </span>
-                  <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)' }}>•</span>
+                  <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)' }}>
+                    •
+                  </span>
                   <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)' }}>
                     Badge: {challenge.badge}
                   </span>
@@ -227,19 +272,41 @@ export default function ChallengesPage({ addToast }) {
               </div>
             </div>
           ) : (
-            activeChallenges.map(challenge => {
-              const elapsed = Math.ceil((Date.now() - new Date(challenge.startDate).getTime()) / 86400000)
+            activeChallenges.map((challenge) => {
+              const elapsed = Math.ceil(
+                (Date.now() - new Date(challenge.startDate).getTime()) / 86400000
+              )
               const remaining = Math.max(0, challenge.duration - elapsed)
 
               return (
                 <div key={challenge.id} className="card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 'var(--space-4)' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      marginBottom: 'var(--space-4)',
+                    }}
+                  >
                     <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
                       <span style={{ fontSize: '36px' }}>{challenge.icon}</span>
                       <div>
                         <h3 style={{ fontWeight: 700 }}>{challenge.title}</h3>
-                        <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>{challenge.description}</p>
-                        <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-2)' }}>
+                        <p
+                          style={{
+                            fontSize: 'var(--font-size-sm)',
+                            color: 'var(--text-secondary)',
+                          }}
+                        >
+                          {challenge.description}
+                        </p>
+                        <div
+                          style={{
+                            display: 'flex',
+                            gap: 'var(--space-2)',
+                            marginTop: 'var(--space-2)',
+                          }}
+                        >
                           <span className="badge badge-info">
                             {remaining > 0 ? `${remaining} days left` : 'Time up!'}
                           </span>
@@ -251,18 +318,30 @@ export default function ChallengesPage({ addToast }) {
 
                   {/* Progress */}
                   <div style={{ marginBottom: 'var(--space-4)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--space-2)', fontSize: 'var(--font-size-sm)' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginBottom: 'var(--space-2)',
+                        fontSize: 'var(--font-size-sm)',
+                      }}
+                    >
                       <span>Progress</span>
-                      <span style={{ fontWeight: 700, color: 'var(--color-primary)' }}>{challenge.progress}%</span>
+                      <span style={{ fontWeight: 700, color: 'var(--color-primary)' }}>
+                        {challenge.progress}%
+                      </span>
                     </div>
                     <div className="progress-bar" style={{ height: 10 }}>
-                      <div className="progress-bar-fill" style={{ width: `${challenge.progress}%` }} />
+                      <div
+                        className="progress-bar-fill"
+                        style={{ width: `${challenge.progress}%` }}
+                      />
                     </div>
                   </div>
 
                   {/* Progress buttons */}
                   <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
-                    {[25, 50, 75, 100].map(pct => (
+                    {[25, 50, 75, 100].map((pct) => (
                       <button
                         key={pct}
                         className={`btn btn-sm ${challenge.progress >= pct ? 'btn-primary' : 'btn-outline'}`}
@@ -291,8 +370,8 @@ export default function ChallengesPage({ addToast }) {
       {/* Achievements */}
       {view === 'achievements' && (
         <div className="grid-3 stagger-children">
-          {ACHIEVEMENTS.map(achievement => {
-            const unlocked = achievements.find(a => a.id === achievement.id)
+          {ACHIEVEMENTS.map((achievement) => {
+            const unlocked = achievements.find((a) => a.id === achievement.id)
             return (
               <div
                 key={achievement.id}
@@ -302,22 +381,30 @@ export default function ChallengesPage({ addToast }) {
                   textAlign: 'center',
                 }}
               >
-                <div style={{
-                  fontSize: '48px',
-                  marginBottom: 'var(--space-3)',
-                  filter: unlocked ? 'none' : 'grayscale(1)',
-                  transition: 'filter var(--transition-base)',
-                }}>
+                <div
+                  style={{
+                    fontSize: '48px',
+                    marginBottom: 'var(--space-3)',
+                    filter: unlocked ? 'none' : 'grayscale(1)',
+                    transition: 'filter var(--transition-base)',
+                  }}
+                >
                   {achievement.icon}
                 </div>
-                <h3 style={{ fontWeight: 700, marginBottom: 'var(--space-1)' }}>{achievement.title}</h3>
-                <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-2)' }}>
+                <h3 style={{ fontWeight: 700, marginBottom: 'var(--space-1)' }}>
+                  {achievement.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: 'var(--font-size-sm)',
+                    color: 'var(--text-secondary)',
+                    marginBottom: 'var(--space-2)',
+                  }}
+                >
                   {achievement.description}
                 </p>
                 {unlocked ? (
-                  <span className="badge badge-success">
-                    ✅ Unlocked
-                  </span>
+                  <span className="badge badge-success">✅ Unlocked</span>
                 ) : (
                   <span className="badge badge-info" style={{ opacity: 0.6 }}>
                     🔒 Locked
