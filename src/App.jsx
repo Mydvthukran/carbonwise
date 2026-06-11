@@ -7,6 +7,7 @@ import Logger from './pages/Logger'
 import Insights from './pages/Insights'
 import Challenges from './pages/Challenges'
 import Settings from './pages/Settings'
+import Assistant from './pages/Assistant'
 import Onboarding from './components/Onboarding'
 import ToastContainer from './components/ToastContainer'
 import { getUserProfile, setUserProfile } from './utils/storage'
@@ -16,6 +17,7 @@ const PAGES = {
   calculator: { component: Calculator, label: 'Calculator', icon: '🧮' },
   logger: { component: Logger, label: 'Activity Log', icon: '📝' },
   insights: { component: Insights, label: 'Insights', icon: '💡' },
+  assistant: { component: Assistant, label: 'Eco Assistant', icon: '💬' },
   challenges: { component: Challenges, label: 'Challenges', icon: '🏆' },
   settings: { component: Settings, label: 'Settings', icon: '⚙️' },
 }
