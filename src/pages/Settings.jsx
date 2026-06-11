@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { getUserProfile, exportData, importData, clearAll } from '../utils/storage'
 
 const COUNTRIES = [

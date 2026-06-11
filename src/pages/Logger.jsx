@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { CalendarHeatmap } from '../components/Charts'
 import { EMISSION_FACTORS, CATEGORIES } from '../data/emissionFactors'
 import { getActivities, addActivity, removeActivity, formatDate, getToday } from '../utils/storage'
@@ -36,7 +36,7 @@ export default function Logger({ addToast }) {
     }
 
     const emissions = Number(amount) * selectedItem.factor
-    const newActivity = addActivity({
+    addActivity({
       type: selectedType,
       category: selectedCategory,
       amount: Number(amount),

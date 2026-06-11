@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import EcoScoreRing from '../components/EcoScoreRing'
 import { BarChart, DonutChart, Sparkline } from '../components/Charts'
 import { getEcoRating, CATEGORIES, GLOBAL_AVERAGES } from '../data/emissionFactors'
@@ -386,7 +386,7 @@ export default function Dashboard({ profile, navigateTo }) {
             </button>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-            {tips.map((tip, i) => (
+            {tips.map((tip) => (
               <div
                 key={tip.id}
                 style={{

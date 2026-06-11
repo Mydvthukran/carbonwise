@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import React from 'react'
 import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import EcoScoreRing from '../EcoScoreRing'
 

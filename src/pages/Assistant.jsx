@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { ECO_TIPS, CHALLENGES } from '../data/tips'
 import { EMISSION_FACTORS } from '../data/emissionFactors'
 import {
@@ -7,10 +7,9 @@ import {
   getCategoryBreakdown,
   getToday,
   getDateDaysAgo,
-  startChallenge,
 } from '../utils/storage'
 
-export default function Assistant({ addToast, navigateTo }) {
+export default function Assistant() {
   const [messages, setMessages] = useState([
     {
       id: 'm1',

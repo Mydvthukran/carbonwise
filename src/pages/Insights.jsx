@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { AreaChart } from '../components/Charts'
 import { CATEGORIES } from '../data/emissionFactors'
-import { getPersonalizedTips, generateWhatIfScenarios, ECO_TIPS } from '../data/tips'
+import { getPersonalizedTips, generateWhatIfScenarios } from '../data/tips'
 import {
   getActivities,
   getDailyEmissions,
@@ -10,7 +10,7 @@ import {
   getToday,
 } from '../utils/storage'
 
-export default function Insights({ profile }) {
+export default function Insights() {
   const activities = useMemo(() => getActivities(), [])
   const today = getToday()
 

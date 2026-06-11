@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { DonutChart } from '../components/Charts'
 import {
   EMISSION_FACTORS,
@@ -281,7 +281,7 @@ function calculateFootprint(answers) {
   return result
 }
 
-export default function Calculator({ profile }) {
+export default function Calculator() {
   const [currentCategory, setCurrentCategory] = useState(0)
   const [answers, setAnswers] = useState({})
   const [showResults, setShowResults] = useState(false)

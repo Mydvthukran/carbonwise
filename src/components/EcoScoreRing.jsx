@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function EcoScoreRing({ score, grade, label, color, size = 180 }) {
   const [animatedScore, setAnimatedScore] = useState(0)

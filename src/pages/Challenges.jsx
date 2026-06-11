@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { CHALLENGES, ACHIEVEMENTS } from '../data/tips'
 import { CATEGORIES } from '../data/emissionFactors'
 import {
@@ -53,8 +53,8 @@ export default function ChallengesPage({ addToast }) {
     addToast({ type: 'info', title: 'Challenge removed' })
   }
 
-  const activeIds = new Set(activeChallenges.map((c) => c.id))
-  const completedIds = new Set(completedChallenges.map((c) => c.id))
+  const activeIds = useMemo(() => new Set(activeChallenges.map((c) => c.id)), [activeChallenges])
+  const completedIds = useMemo(() => new Set(completedChallenges.map((c) => c.id)), [completedChallenges])
 
   const availableChallenges = useMemo(() => {
     let filtered = CHALLENGES.filter((c) => !activeIds.has(c.id) && !completedIds.has(c.id))

@@ -1,6 +1,5 @@
-import React from 'react'
 
-export default function MobileHeader({ title, onMenuClick }) {
+export default function MobileHeader({ onMenuClick }) {
   return (
     <header className="mobile-header" role="banner">
       <button

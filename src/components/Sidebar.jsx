@@ -1,11 +1,9 @@
-import React from 'react'
 
 export default function Sidebar({
   currentPage,
   onNavigate,
   pages,
   isOpen,
-  onClose,
   theme,
   onThemeToggle,
 }) {
