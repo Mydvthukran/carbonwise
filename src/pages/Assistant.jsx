@@ -239,15 +239,20 @@ export default function Assistant() {
               <div
                 style={{
                   background:
-                    msg.sender === 'user' ? 'var(--color-primary)' : 'var(--bg-secondary)',
-                  color: msg.sender === 'user' ? '#fff' : 'var(--text-primary)',
+                    msg.sender === 'user'
+                      ? 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))'
+                      : 'var(--bg-card)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  color: msg.sender === 'user' ? '#000000' : 'var(--text-primary)',
                   padding: 'var(--space-3) var(--space-4)',
                   borderRadius: msg.sender === 'user' ? '18px 18px 2px 18px' : '18px 18px 18px 2px',
-                  border: msg.sender === 'user' ? 'none' : '1px solid var(--border-color)',
+                  border: msg.sender === 'user' ? '1px solid rgba(255,255,255,0.2)' : '1px solid var(--border-color)',
                   whiteSpace: 'pre-line',
                   fontSize: 'var(--font-size-sm)',
-                  boxShadow: 'var(--shadow-sm)',
+                  boxShadow: msg.sender === 'user' ? '0 4px 15px rgba(0, 230, 118, 0.3)' : 'var(--shadow-sm)',
                   lineHeight: '1.5',
+                  fontWeight: msg.sender === 'user' ? '500' : '400',
                 }}
               >
                 {/* Safe text formatting with markdown-like bold parsing */}
@@ -356,21 +361,28 @@ export default function Assistant() {
                 padding: 'var(--space-2) var(--space-3)',
                 borderRadius: '20px',
                 fontSize: 'var(--font-size-xs)',
-                fontWeight: 500,
+                fontWeight: 600,
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
-                background: 'var(--bg-secondary)',
+                background: 'var(--bg-card)',
+                backdropFilter: 'blur(10px)',
                 color: 'var(--text-secondary)',
                 transition: 'all var(--transition-fast)',
               }}
               onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(16, 185, 129, 0.08)'
+                e.target.style.background = 'var(--color-primary-glow)'
                 e.target.style.borderColor = 'var(--color-primary)'
+                e.target.style.color = 'var(--text-primary)'
+                e.target.style.boxShadow = 'var(--shadow-glow)'
+                e.target.style.transform = 'translateY(-1px)'
               }}
               onMouseLeave={(e) => {
-                e.target.style.background = 'var(--bg-secondary)'
+                e.target.style.background = 'var(--bg-card)'
                 e.target.style.borderColor = 'var(--border-color)'
+                e.target.style.color = 'var(--text-secondary)'
+                e.target.style.boxShadow = 'none'
+                e.target.style.transform = 'none'
               }}
             >
               {p.label}
